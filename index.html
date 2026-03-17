@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postoperative Altitude Travel Risk Assessment | PPV with Intraocular Gas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .input-section {
+            padding: 30px;
+        }
+        
+        .eligibility-box {
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .eligibility-box h3 {
+            color: #0c5460;
+            font-size: 15px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .eligibility-box ul {
+            margin: 0 0 8px 18px;
+            padding: 0;
+            font-size: 14px;
+            color: #0c5460;
+            line-height: 1.6;
+        }
+        
+        .eligibility-box li {
+            margin-bottom: 4px;
+        }
+        
+        .eligibility-box .not-applicable {
+            color: #721c24;
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .unit {
+            display: block;
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 4px;
+            font-weight: normal;
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result-section {
+            padding: 0 30px 30px;
+            display: none;
+        }
+        
+        .result-card {
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 5px solid;
+        }
+        
+        .binary-safe {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        
+        .binary-unsafe {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .binary-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .binary-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .iop-value {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+        
+        .iop-unit {
+            font-size: 24px;
+            color: #7f8c8d;
+        }
+        
+        .grade-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .grade-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .grade-title {
+            font-size: 14px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .grade-reference {
+            font-size: 12px;
+            color: #6c757d;
+            font-style: italic;
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .grade-content {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .grade-description {
+            font-size: 14px;
+            color: #495057;
+            line-height: 1.5;
+            font-style: italic;
+        }
+        
+        .grade-i { border-color: #17a2b8; background: #e7f8fc; }
+        .grade-ii { border-color: #ffc107; background: #fff8e6; }
+        .grade-iii { border-color: #fd7e14; background: #fff4e6; }
+        .grade-iv { border-color: #dc3545; background: #ffe6e6; }
+        
+        .warning-text {
+            font-size: 13px;
+            color: #856404;
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 4px solid #ffc107;
+            line-height: 1.5;
+        }
+        
+        .detail-params {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #495057;
+            line-height: 1.6;
+            font-family: 'Courier New', monospace;
+        }
+        
+        @media (max-width: 480px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏔️ Postoperative Altitude Travel Risk Assessment</h1>
+            <p>Based on Boyle-Mariotte's Law & First-Order Kinetics<br>For Patients Following PPV with Intraocular Gas Tamponade</p>
+        </div>
+        
+        <div class="input-section">
+            <div class="eligibility-box">
+                <h3>📋 Intended Use & Limitations</h3>
+                <strong>Designed for:</strong>
+                <ul>
+                    <li>Adult patients with standard isovolumetric gas fill volumes (4.5 mL total)</li>
+                </ul>
+                <span class="not-applicable">Not applicable to:</span>
+                <ul>
+                    <li>Pediatric patients (age &lt; 18 years)</li>
+                    <li>High myopia with axial length &gt; 26 mm</li>
+                    <li>History of glaucoma or ocular hypertension</li>
+                    <li>Previous vitrectomy or scleral buckling</li>
+                    <li>Significant individual variations in ocular compliance</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label>Intraocular Gas Type</label>
+                <select id="gasType">
+                    <option value="C3F8">C₃F₈ (Perfluoropropane, 14%)</option>
+                    <option value="C2F6">C₂F₆ (Perfluoroethane, 16%)</option>
+                    <option value="SF6">SF₆ (Sulfur Hexafluoride, 20%)</option>
+                    <option value="Air">Air (100%)</option>
+                </select>
+            </div>
+            
+            <div class="input-row">
+                <div class="form-group">
+                    <label>Surgical Center Altitude <span style="font-weight: normal; color: #7f8c8d;">(h₀)</span></label>
+                    <input type="number" id="h0" value="0" min="0" step="1">
+                    <span class="unit">meters (m)</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Maximum Route Altitude <span style="font-weight: normal; color: #7f8c8d;">(hₘₐₓ)</span></label>
+                    <input type="number" id="hmax" value="2000" min="0" step="1">
+                    <span class="unit">meters (m)</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Postoperative Day <span style="font-weight: normal; color: #7f8c8d;">(t)</span></label>
+                <input type="number" id="t" value="7" min="0" max="90" step="0.5">
+                <span class="unit">days post-surgery</span>
+            </div>
+            
+            <button onclick="calculate()">Calculate IOP Risk</button>
+        </div>
+        
+        <div class="result-section" id="resultSection">
+            <div id="binaryResult" class="result-card">
+                <div class="binary-title" id="binaryTitle"></div>
+                <div class="binary-subtitle" id="binarySubtitle"></div>
+                <div style="font-size: 16px; margin-top: 10px;">
+                    Predicted ΔIOP: <span id="iopDisplay" style="font-weight: 700;"></span>
+                </div>
+            </div>
+            
+            <div class="grade-card" id="gradeCard">
+                <div class="grade-header">
+                    <span class="grade-title">Pathophysiological Grade</span>
+                    <span class="grade-reference">For reference only</span>
+                </div>
+                <div class="grade-content" id="gradeContent"></div>
+                <div class="grade-description" id="gradeDescription"></div>
+            </div>
+            
+            <div class="warning-text">
+                <strong>Clinical Note:</strong> This model provides theoretical calculations based on first-order kinetics and population-averaged parameters for adult eyes with standard gas fill volumes. Not applicable to pediatric patients, axial length &gt;26 mm, or glaucoma history. Actual IOP elevation may vary significantly due to individual ocular compliance, exact gas fill percentage, and measurement error. Patients with values near the 6 mmHg threshold (±1-2 days) require particularly cautious assessment. Clinical decisions should integrate slit-lamp examination of residual gas volume and applanation tonometry.
+            </div>
+            
+            <div class="detail-params" id="detailParams"></div>
+        </div>
+    </div>
+
+    <script>
+        const gasParams = {
+            'C3F8': { name: 'C₃F₈', vGas: 0.63, vAir: 3.87, t12: 10, k: 0.0693 },
+            'C2F6': { name: 'C₂F₆', vGas: 0.72, vAir: 3.78, t12: 6, k: 0.1155 },
+            'SF6': { name: 'SF₆', vGas: 0.90, vAir: 3.60, t12: 5.5, k: 0.1260 },
+            'Air': { name: 'Air', vGas: 0, vAir: 4.5, t12: 2, k: 0.3466 }
+        };
+        
+        const kAir = 0.3466;
+        const C = 3.115;
+        
+        function calculatePressure(h) {
+            return 760 * Math.pow(1 - (0.0065 * h) / 288.15, 5.2561);
+        }
+        
+        function calculateVolume(t, gasType) {
+            const p = gasParams[gasType];
+            return {
+                total: p.vGas * Math.exp(-p.k * t) + p.vAir * Math.exp(-kAir * t),
+                vGas: p.vGas * Math.exp(-p.k * t),
+                vAir: p.vAir * Math.exp(-kAir * t)
+            };
+        }
+        
+        function getGrade(deltaIOP) {
+            if (deltaIOP <= 6) {
+                return {
+                    name: 'Grade I (Subclinical)',
+                    desc: 'May represent subclinical expansion with preserved compensatory mechanisms; theoretical structural damage risk remains minimal. For illustrative reference only.',
+                    class: 'grade-i',
+                    range: '≤6 mmHg'
+                };
+            } else if (deltaIOP <= 15) {
+                return {
+                    name: 'Grade II (Functional)',
+                    desc: 'May indicate potential functional impairment with possible trabecular outflow compromise; theoretically reversible with intervention. For illustrative reference only.',
+                    class: 'grade-ii',
+                    range: '6-15 mmHg'
+                };
+            } else if (deltaIOP <= 25) {
+                return {
+                    name: 'Grade III (Structural)',
+                    desc: 'May suggest structural stress including potential corneal endothelial decompensation and reduced optic nerve head perfusion. For illustrative reference only.',
+                    class: 'grade-iii',
+                    range: '15-25 mmHg'
+                };
+            } else {
+                return {
+                    name: 'Grade IV (Critical)',
+                    desc: 'May represent critical compartment physiology with potential risk of central retinal artery compromise and axonal ischemia. For illustrative reference only.',
+                    class: 'grade-iv',
+                    range: '>25 mmHg'
+                };
+            }
+        }
+        
+        function calculate() {
+            const gasType = document.getElementById('gasType').value;
+            const h0 = parseFloat(document.getElementById('h0').value);
+            const hmax = parseFloat(document.getElementById('hmax').value);
+            const t = parseFloat(document.getElementById('t').value);
+            
+            if (isNaN(h0) || isNaN(hmax) || isNaN(t) || t < 0 || hmax < 0 || h0 < 0) {
+                alert("Please enter valid positive numbers");
+                return;
+            }
+            
+            const P_h0 = calculatePressure(h0);
+            const P_hmax = calculatePressure(hmax);
+            const v = calculateVolume(t, gasType);
+            
+            const expansionFactor = (P_h0 / P_hmax - 1);
+            const deltaV = v.total * expansionFactor * 1000;
+            const deltaIOP = deltaV / C;
+            
+            const grade = getGrade(deltaIOP);
+            const isSafe = deltaIOP <= 6;
+            
+            document.getElementById('resultSection').style.display = 'block';
+            
+            const binaryResult = document.getElementById('binaryResult');
+            if (isSafe) {
+                binaryResult.className = 'result-card binary-safe';
+                document.getElementById('binaryTitle').innerHTML = '✓ Travel May Be Considered';
+                document.getElementById('binarySubtitle').textContent = 'Theoretical ΔIOP within compensatory threshold (≤6 mmHg)';
+            } else {
+                binaryResult.className = 'result-card binary-unsafe';
+                document.getElementById('binaryTitle').innerHTML = '✗ Defer Travel Recommended';
+                document.getElementById('binarySubtitle').textContent = 'Theoretical ΔIOP exceeds safe compensation threshold (>6 mmHg)';
+            }
+            
+            document.getElementById('iopDisplay').innerHTML = `<span class="iop-value">${deltaIOP.toFixed(1)}<span class="iop-unit"> mmHg</span></span>`;
+            
+            const gradeCard = document.getElementById('gradeCard');
+            gradeCard.className = `grade-card ${grade.class}`;
+            document.getElementById('gradeContent').innerHTML = `${grade.name} <span style="color: #6c757d; font-size: 14px; margin-left: 8px;">${grade.range}</span>`;
+            document.getElementById('gradeDescription').textContent = grade.desc;
+            
+            const g = gasParams[gasType];
+            document.getElementById('detailParams').innerHTML = `
+<strong>Calculation Parameters:</strong><br>
+Gas: ${g.name} (t₁/₂ = ${g.t12} days)<br>
+Surgical Center: ${h0}m (P = ${P_h0.toFixed(1)} mmHg)<br>
+Max Altitude: ${hmax}m (P = ${P_hmax.toFixed(1)} mmHg)<br>
+Post-op Day: ${t} days<br>
+Residual Volume: ${v.total.toFixed(2)} mL (${g.name}: ${v.vGas.toFixed(2)} mL, Air: ${v.vAir.toFixed(2)} mL)<br>
+Expansion: ${(expansionFactor * 100).toFixed(1)}% | Compliance: ${C} μL/mmHg
+            `;
+            
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
